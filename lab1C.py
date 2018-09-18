@@ -1,5 +1,8 @@
 import hashlib
 
+# (mawilliams7) I would consider using the same indent for the code. For instance, use just four spaces or
+# just two spaces.
+
 class User(object):
     # 
     #Attributes:
@@ -30,6 +33,7 @@ def generate_Passwords(current_num, minlength, maxlength, user_List):
         print(current_num-1," was the last number tested" )
         return user_List
     else:
+        # (mawilliams7) I am unsure why the range is 500 here. A comment would help clarify.
         for i in range(500):
             test_Passwords(str(current_num), minlength, maxlength, user_List)
             current_num +=1 
@@ -44,15 +48,20 @@ def getUsers(filename):
     return user_List
 
 # Test Passwords take a string and checks to see if it the password of any of the users.
+# (mawilliams7) I would consider using function docstrings, they would make the purpose of these
+# functions more clear.
 def test_Passwords(string, minlength, maxlength,user_List ):
   if len(string)< minlength:
       string = "0" + string
       test_Passwords(str(string), minlength, maxlength, user_List)
   else:
+        # (mawilliams7) Easier way to do this is to create a dictionatry where the key
+        # is the hash, and the value is the user object. You wouldn't need to use the loop this way
         for i in range(100):
             if hash_with_sha256(string + user_List[i].saltV) == user_List[i].HashedPW :
                 user_List[i].Password = string
                 print(user_List[i].name, " password: ", user_List[i].Password )  
+        # (mawilliams7) I am unsure what these lines of code are doing. A comment would clarify.
         if len(string) < maxlength:
             string = "0" + string
             test_Passwords(str(string), minlength, maxlength, user_List)
